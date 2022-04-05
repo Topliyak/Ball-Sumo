@@ -1,7 +1,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PowerUpSpawner : Spawner<GameObject>
+public class PowerUpSpawner : Spawner<Powerup>
 {
 	//
 }

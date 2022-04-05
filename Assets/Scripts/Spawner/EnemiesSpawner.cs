@@ -7,7 +7,17 @@ public class EnemiesSpawner : Spawner<Enemy>
 {
 	[SerializeField] private Transform _player;
 
-	protected override void HandleSpawnedObject(Enemy spawned)
+	private void OnEnable()
+	{
+		spawnedEvent.AddListener(OnEnemySpawned);
+	}
+
+	private void OnDisable()
+	{
+		spawnedEvent.RemoveListener(OnEnemySpawned);
+	}
+
+	private void OnEnemySpawned(Enemy spawned)
 	{
 		spawned.Player = _player;
 		spawned.enabled = true;

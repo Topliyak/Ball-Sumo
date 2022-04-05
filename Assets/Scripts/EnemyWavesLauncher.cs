@@ -5,29 +5,21 @@ public class EnemyWavesLauncher : MonoBehaviour
 {
 	[SerializeField] private EnemiesSpawner _enemiesSpawner;
 	[SerializeField] private PowerUpSpawner _powerUpSpawner;
+	[SerializeField] private Score _score;
 
-	private int _waveNumber;
-
-	private void Start()
+	private void OnEnable()
 	{
-		_waveNumber = 0;
+		_score.changedEvent.AddListener(Launch);
 	}
 
-	private void Update()
+	private void OnDisable()
 	{
-		if (FindObjectsOfType<Enemy>().Any() == false)
-		{
-			if (FindObjectsOfType<GameObject>().Any(obj => obj.tag.Contains(PlayerController.PowerUpTag)) == false)
-			{
-				LaunchNextWave();
-			}
-		}
+		_score.changedEvent.RemoveListener(Launch);
 	}
 
-	private void LaunchNextWave()
+	private void Launch(int wave)
 	{
-		_waveNumber++;
-		_enemiesSpawner.Spawn(_waveNumber);
+		_enemiesSpawner.Spawn(wave);
 		_powerUpSpawner.Spawn();
 	}
 }

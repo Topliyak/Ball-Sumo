@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3070018405839229180}
   - component: {fileID: 3070018405839229183}
   - component: {fileID: 3070018405839229176}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
