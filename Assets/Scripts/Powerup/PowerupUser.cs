@@ -1,9 +1,17 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PowerupUser : MonoBehaviour
 {
 	private PowerupBehaviour _powerupBehaviour;
 	private float _timeUntilPowerupOver;
+	
+	[Space, SerializeField] private UnityEvent _gotPowerupEvent;
+	[SerializeField] private UnityEvent _powerupOverEvent;
+
+	public UnityEvent gotPowerupEvent => _gotPowerupEvent;
+
+	public UnityEvent powerupOverEvent => _powerupOverEvent;
 
 	private void Update()
 	{
@@ -12,6 +20,7 @@ public class PowerupUser : MonoBehaviour
 		if (_timeUntilPowerupOver <= 0)
 		{
 			_powerupBehaviour = null;
+			powerupOverEvent.Invoke();
 		}
 
 		_powerupBehaviour?.Apply();
@@ -27,6 +36,8 @@ public class PowerupUser : MonoBehaviour
 			_timeUntilPowerupOver = powerup.duration_sec;
 			_powerupBehaviour.Init(this);
 			powerup.Destroy();
+
+			gotPowerupEvent.Invoke();
 		}
 	}
 }

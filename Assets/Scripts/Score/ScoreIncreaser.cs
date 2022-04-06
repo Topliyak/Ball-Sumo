@@ -7,7 +7,7 @@ public class ScoreIncreaser : MonoBehaviour
 
 	private void Update()
 	{
-		if (FindObjectsOfType<Enemy>().Any() == false)
+		if (FindObjectsOfType<EnemyMover>().Any() == false)
 		{
 			if (FindObjectsOfType<Powerup>().Any() == false)
 			{

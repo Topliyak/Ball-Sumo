@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EnemiesSpawner : Spawner<Enemy>
+public class EnemiesSpawner : Spawner<EnemyMover>
 {
 	[SerializeField] private Transform _player;
 
@@ -17,9 +17,9 @@ public class EnemiesSpawner : Spawner<Enemy>
 		spawnedEvent.RemoveListener(OnEnemySpawned);
 	}
 
-	private void OnEnemySpawned(Enemy spawned)
+	private void OnEnemySpawned(EnemyMover spawned)
 	{
-		spawned.Player = _player;
+		spawned.player = _player;
 		spawned.enabled = true;
 	}
 }

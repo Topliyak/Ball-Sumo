@@ -20,7 +20,7 @@ public class PusherBehaviour : PowerupBehaviour
 
 		foreach (var enemy in enemies)
 		{
-			enemy.GetComponent<Enemy>()?.ApplyImpulce(_powerupUser.transform.position, _pushForce);
+			enemy.GetComponent<ImpulceReceiver>()?.ApplyImpulce(_powerupUser.transform.position, _pushForce);
 		}
 	}
 

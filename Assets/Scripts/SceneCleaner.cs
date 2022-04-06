@@ -6,7 +6,7 @@ public class SceneCleaner : MonoBehaviour
 {
     public void Clean()
 	{
-		foreach (var enemy in FindObjectsOfType<Enemy>())
+		foreach (var enemy in FindObjectsOfType<MortalEnemy>())
 		{
 			enemy.Kill();
 		}
