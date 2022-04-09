@@ -40,6 +40,9 @@ public class Joystick : MonoBehaviour
 
 	private void Activate(Vector2 position)
 	{
+		if (active)
+			return;
+
 		active = true;
 		_rectTransform.position = position;
 	}

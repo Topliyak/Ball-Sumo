@@ -1,35 +1,24 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PowerupBehaviour/Pusher")]
 public class PusherBehaviour : PowerupBehaviour
 {
-	private float _powerupUserRadius;
-
-	[SerializeField] private LayerMask _enemiesLayer;
 	[SerializeField] private float _pushForce;
 
-	public override void Init(PowerupUser user)
+	private void OnCollisionEnter(Collision collision)
 	{
-		base.Init(user);
-		_powerupUserRadius = user.GetComponent<SphereCollider>().radius * user.transform.localScale.x;
+		if (enabled == false)
+			return;
+
+		collision.gameObject.GetComponent<ImpulceReceiver>()?.ApplyImpulce(transform.position, _pushForce);
 	}
 
-	public override void Apply()
+	public override void DuplicatePropertiesTo(PowerupBehaviour behaviour)
 	{
-		var enemies = Physics.OverlapSphere(_powerupUser.transform.position, _powerupUserRadius, _enemiesLayer);
+		PusherBehaviour pusherBehaviour = behaviour as PusherBehaviour;
 
-		foreach (var enemy in enemies)
-		{
-			enemy.GetComponent<ImpulceReceiver>()?.ApplyImpulce(_powerupUser.transform.position, _pushForce);
-		}
-	}
+		if (pusherBehaviour == null)
+			throw new System.ArgumentException("Argument is not PusherBehaviour instance");
 
-	public override PowerupBehaviour GetCopy() 
-	{
-		var pusherCopy = CreateInstance<PusherBehaviour>();
-		pusherCopy._enemiesLayer = _enemiesLayer;
-		pusherCopy._pushForce = _pushForce;
-
-		return pusherCopy;
+		pusherBehaviour._pushForce = _pushForce;
 	}
 }

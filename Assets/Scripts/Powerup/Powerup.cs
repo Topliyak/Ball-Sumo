@@ -7,7 +7,7 @@ public class Powerup : MonoBehaviour
 	[SerializeField] private PowerupBehaviour _behaviour;
 	[SerializeField] private float _duration_sec;
 
-	public PowerupBehaviour behaviour => _behaviour.GetCopy();
+	public PowerupBehaviour behaviour => _behaviour;
 
 	public float duration_sec => _duration_sec;
 

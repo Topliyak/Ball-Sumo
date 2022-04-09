@@ -1,25 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class ScoreTextChanger : MonoBehaviour
 {
-	[SerializeField] private Text _scoreText;
+	private TextMeshProUGUI _scoreText;
+
 	[SerializeField] private Score _score;
 
-	private void OnEnable()
-	{
-		_score.changedEvent.AddListener(OnScoreChanged);
-	}
+	private void Start() => _scoreText = GetComponent<TextMeshProUGUI>();
 
-	private void OnDisable()
-	{
-		_score.changedEvent.RemoveListener(OnScoreChanged);
-	}
+	private void OnEnable() => _score.changedEvent.AddListener(OnScoreChanged);
 
-	private void OnScoreChanged(int amount)
-	{
-		_scoreText.text = amount.ToString();
-	}
+	private void OnDisable() => _score.changedEvent.RemoveListener(OnScoreChanged);
+
+	private void OnScoreChanged(int amount) => _scoreText.text = amount.ToString();
 }

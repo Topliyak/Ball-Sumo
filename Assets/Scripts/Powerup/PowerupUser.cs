@@ -18,12 +18,7 @@ public class PowerupUser : MonoBehaviour
 		_timeUntilPowerupOver -= Time.deltaTime;
 
 		if (_timeUntilPowerupOver <= 0)
-		{
-			_powerupBehaviour = null;
-			powerupOverEvent.Invoke();
-		}
-
-		_powerupBehaviour?.Apply();
+			ResetPowerup();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -32,12 +27,27 @@ public class PowerupUser : MonoBehaviour
 
 		if (powerup != null)
 		{
-			_powerupBehaviour = powerup.behaviour;
+			ChangeBehaviour(powerup.behaviour);
 			_timeUntilPowerupOver = powerup.duration_sec;
-			_powerupBehaviour.Init(this);
-			powerup.Destroy();
 
+			powerup.Destroy();
+			
 			gotPowerupEvent.Invoke();
 		}
+	}
+
+	private void ChangeBehaviour(PowerupBehaviour behaviour)
+	{
+		Destroy(_powerupBehaviour);
+		_powerupBehaviour = gameObject.AddComponent(behaviour.GetType()) as PowerupBehaviour;
+		behaviour.DuplicatePropertiesTo(_powerupBehaviour);
+		_powerupBehaviour.Activate();
+	}
+
+	public void ResetPowerup()
+	{
+		Destroy(_powerupBehaviour);
+		_powerupBehaviour = null;
+		powerupOverEvent.Invoke();
 	}
 }

@@ -1,15 +1,10 @@
 using UnityEngine;
 
-public abstract class PowerupBehaviour: ScriptableObject
+public abstract class PowerupBehaviour: MonoBehaviour
 {
-	protected PowerupUser _powerupUser;
+	private void Awake() => enabled = false;
 
-	public virtual void Init(PowerupUser user)
-	{
-		_powerupUser = user;
-	}
+	public void Activate() => enabled = true;
 
-	public abstract void Apply();
-
-	public abstract PowerupBehaviour GetCopy();
+	public abstract void DuplicatePropertiesTo(PowerupBehaviour behaviour);
 }

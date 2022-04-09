@@ -4,14 +4,14 @@ using Random = UnityEngine.Random;
 
 public class Spawner<T>: MonoBehaviour where T: Object
 {
-	[SerializeField] private T _template;
+	[SerializeField] private T[] _templates;
 	[SerializeField] private Transform _spawnPoint;
 	[SerializeField] private Transform _spawnedObjectsParent;
 	[SerializeField] private Vector3 _maxOffset;
 
 	public UnityEvent<T> spawnedEvent { get; } = new UnityEvent<T>();
 
-	public T template => _template;
+	public T[] templates => _templates;
 
 	public Transform spawnPoint => _spawnPoint;
 
@@ -23,7 +23,7 @@ public class Spawner<T>: MonoBehaviour where T: Object
 	{
 		for (int i = 0; i < count; i++)
 		{
-			T spawned = Instantiate(_template, GetRandomPosition(), _spawnPoint.rotation, _spawnedObjectsParent);
+			T spawned = Instantiate(GetRandomTemplate(), GetRandomPosition(), _spawnPoint.rotation, _spawnedObjectsParent);
 			spawnedEvent.Invoke(spawned);
 		}
 	}
@@ -38,4 +38,6 @@ public class Spawner<T>: MonoBehaviour where T: Object
 
 		return _spawnPoint.TransformDirection(offset);
 	}
+
+	protected T GetRandomTemplate() => _templates[Random.Range(0, _templates.Length)];
 }
