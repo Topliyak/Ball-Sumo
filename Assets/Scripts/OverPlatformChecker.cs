@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class OverPlatformChecker : MonoBehaviour
 {
 	private SphereCollider _sphereCollider;
+	private Ray _ray;
 
 	[SerializeField] private float _rayDistance;
 	[SerializeField] private LayerMask _layerMask;
@@ -22,16 +23,19 @@ public class OverPlatformChecker : MonoBehaviour
 	private void Start()
 	{
 		_sphereCollider = GetComponent<SphereCollider>();
+
+		_ray = new Ray();
+		_ray.direction = Vector3.down;
 	}
 
 	private void Update()
 	{
 		bool wasOverPlatform = overPlatform;
 
-		Ray ray = new Ray(transform.position, Vector3.down);
-		Debug.DrawRay(ray.origin, ray.direction * _rayDistance);
-		//overPlatform = Physics.SphereCast(ray, radius * 0.9f, _rayDistance, _layerMask);
-		overPlatform = Physics.Raycast(ray, _rayDistance, _layerMask);
+		_ray.origin = transform.position;
+		overPlatform = Physics.SphereCast(_ray, radius * 0.95f, _rayDistance, _layerMask);
+
+		print(overPlatform);
 
 		if (wasOverPlatform && !overPlatform)
 		{

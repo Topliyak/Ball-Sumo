@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerMover : Mover
 {
 	private Transform _camera;
+	private Vector3 _direction;
 
 	[SerializeField] private Joystick _joystick;
 
@@ -16,10 +17,14 @@ public class PlayerMover : Mover
 		_camera = Camera.main.transform;
 	}
 
+	private void FixedUpdate()
+	{
+		Move(_direction);
+	}
+
 	private void OnInputUpdated(Vector2 input)
 	{
-		Vector3 direction = _camera.TransformDirection(input.x, 0, input.y);
-		direction -= Vector3.up * direction.y;
-		Move(direction);
+		_direction = _camera.TransformDirection(input.x, 0, input.y);
+		_direction -= Vector3.up * _direction.y;
 	}
 }

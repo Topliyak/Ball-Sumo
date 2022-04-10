@@ -7,6 +7,8 @@ public class Mover : MonoBehaviour
 
 	[SerializeField] private float _force;
 
+	public Vector3 velocity => _rigidbody.velocity;
+
 	protected virtual void Start()
 	{
 		_rigidbody = GetComponent<Rigidbody>();

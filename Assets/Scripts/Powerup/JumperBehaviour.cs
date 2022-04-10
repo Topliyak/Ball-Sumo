@@ -5,7 +5,7 @@ using UnityEngine;
 public class JumperBehaviour : PowerupBehaviour
 {
 	private float _timeSinceJumpStarted_sec;
-	private float _startPositionY;
+	private float? _startPositionY = null;
 
 	[Header("Jump")]
 	[SerializeField] private float _jumpDelay;
@@ -21,13 +21,17 @@ public class JumperBehaviour : PowerupBehaviour
 	public bool displayRadius;
 #endif
 
-	private void OnEnable()
+	private void Start()
 	{
 		_timeSinceJumpStarted_sec = 0;
 		_startPositionY = transform.position.y;
 	}
 
-	private void OnDisable() => SetHeight(0);
+	private void OnDisable()
+	{
+		if (_startPositionY.HasValue)
+			SetHeight(0);
+	}
 
 	private void Update()
 	{
@@ -52,7 +56,7 @@ public class JumperBehaviour : PowerupBehaviour
 
 	private void SetHeight(float height)
 	{
-		transform.position = transform.position + Vector3.up * (-transform.position.y + _startPositionY + height);
+		transform.position = transform.position + Vector3.up * (-transform.position.y + _startPositionY.Value + height);
 	}
 
 	private void ApplyImpulce()

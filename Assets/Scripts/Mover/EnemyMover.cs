@@ -6,8 +6,13 @@ public class EnemyMover : Mover
 {
 	public Transform player { get; set; }
 
-	private void Update()
+	private void FixedUpdate() => Move(GetDirection());
+
+	protected virtual Vector3 GetDirection()
 	{
-		Move(player.position - transform.position);
+		Vector3 direction = player.position - transform.position;
+		direction.y = 0;
+
+		return direction;
 	}
 }

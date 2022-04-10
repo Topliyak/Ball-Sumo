@@ -502,6 +502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _templates:
   - {fileID: 3070018405839229176, guid: 75269382365ac7d4f8d1798f1254b7c0, type: 3}
+  - {fileID: 3610678736897547824, guid: babee0109686dcc47a54b91f61fa79f0, type: 3}
   _spawnPoint: {fileID: 146515158}
   _spawnedObjectsParent: {fileID: 146515158}
   _maxOffset: {x: 5, y: 0, z: 5}
@@ -1933,6 +1934,10 @@ PrefabInstance:
       propertyPath: _deadEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1114986285}
+    - target: {fileID: 1121320003895294844, guid: a439e8062cf94bc44b179680def6dfe5, type: 3}
+      propertyPath: _force
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1121320003895294844, guid: a439e8062cf94bc44b179680def6dfe5, type: 3}
       propertyPath: _joystick
       value: 

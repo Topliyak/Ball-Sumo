@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class PowerupBehaviour: MonoBehaviour
 {
-	private void Awake() => enabled = false;
+	protected virtual void Awake() => enabled = false;
 
 	public void Activate() => enabled = true;
 

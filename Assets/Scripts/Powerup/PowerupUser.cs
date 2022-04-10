@@ -29,7 +29,7 @@ public class PowerupUser : MonoBehaviour
 		{
 			ChangeBehaviour(powerup.behaviour);
 			_timeUntilPowerupOver = powerup.duration_sec;
-
+		
 			powerup.Destroy();
 			
 			gotPowerupEvent.Invoke();
