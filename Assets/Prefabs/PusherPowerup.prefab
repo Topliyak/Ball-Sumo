@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1801340109631240361}
   - component: {fileID: 2887435141470894780}
   - component: {fileID: 889942040076635526}
+  - component: {fileID: -6273597681506916011}
   m_Layer: 7
   m_Name: PusherPowerup
   m_TagString: PowerUp
@@ -124,3 +125,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pushForce: 15
+--- !u!114 &-6273597681506916011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800199920918881755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57846b8ed89351e4c860a8f90eba43f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _paused: 0
+  _eulerSpeed: {x: 0, y: -90, z: 0}

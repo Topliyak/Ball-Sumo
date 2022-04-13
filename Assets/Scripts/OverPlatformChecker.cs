@@ -35,8 +35,6 @@ public class OverPlatformChecker : MonoBehaviour
 		_ray.origin = transform.position;
 		overPlatform = Physics.SphereCast(_ray, radius * 0.95f, _rayDistance, _layerMask);
 
-		print(overPlatform);
-
 		if (wasOverPlatform && !overPlatform)
 		{
 			lostPlatformUnderEvent.Invoke(gameObject);

@@ -6,6 +6,7 @@ public class JumperBehaviour : PowerupBehaviour
 {
 	private float _timeSinceJumpStarted_sec;
 	private float? _startPositionY = null;
+	private ParticleSystem _groundedEffect;
 
 	[Header("Jump")]
 	[SerializeField] private float _jumpDelay;
@@ -23,8 +24,9 @@ public class JumperBehaviour : PowerupBehaviour
 
 	private void Start()
 	{
+		_groundedEffect = transform.GetComponentInChildren<ParticleSystem>();
 		_timeSinceJumpStarted_sec = 0;
-		_startPositionY = transform.position.y;
+		UpdateStartPosY();
 	}
 
 	private void OnDisable()
@@ -40,19 +42,31 @@ public class JumperBehaviour : PowerupBehaviour
 		_timeSinceJumpStarted_sec += Time.deltaTime;
 		_timeSinceJumpStarted_sec %= _jumpPeriod + _jumpDelay;
 
-		bool finishedJump = _timeSinceJumpStarted_sec >= _jumpPeriod;
+		bool inJump = _timeSinceJumpStarted_sec < _jumpPeriod;
 
-		if (wasInJump && finishedJump) ApplyImpulce();
-
-		if (_timeSinceJumpStarted_sec > _jumpPeriod)
+		if (wasInJump && !inJump)
 		{
-			SetHeight(0);
+			OnGrounded();
 		}
-		else
+		else if (!wasInJump && inJump)
+		{
+			UpdateStartPosY();
+		}
+		
+		if (inJump)
 		{
 			SetHeight(_jumpCurve.Evaluate(_timeSinceJumpStarted_sec / _jumpPeriod) * _jumpHeight);
 		}
 	}
+
+	private void OnGrounded()
+	{
+		SetHeight(0);
+		ApplyImpulce();
+		_groundedEffect?.Play();
+	}
+
+	private void UpdateStartPosY() => _startPositionY = transform.position.y;
 
 	private void SetHeight(float height)
 	{
