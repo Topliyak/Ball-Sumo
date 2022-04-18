@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
@@ -9,8 +10,6 @@ public class Spawner<T>: MonoBehaviour where T: Object
 	[SerializeField] private Transform _spawnedObjectsParent;
 	[SerializeField] private Vector3 _maxOffset;
 
-	public UnityEvent<T> spawnedEvent { get; } = new UnityEvent<T>();
-
 	public T[] templates => _templates;
 
 	public Transform spawnPoint => _spawnPoint;
@@ -19,16 +18,22 @@ public class Spawner<T>: MonoBehaviour where T: Object
 
 	public Vector3 maxOffset => _maxOffset;
 
-	public virtual void Spawn(int count)
+	public virtual T[] Spawn(int count)
 	{
+		if (count < 1)
+			throw new System.ArgumentOutOfRangeException("Spawner can't spawn less than 1 object");
+
+		T[] spawned = new T[count];
+
 		for (int i = 0; i < count; i++)
 		{
-			T spawned = Instantiate(GetRandomTemplate(), GetRandomPosition(), _spawnPoint.rotation, _spawnedObjectsParent);
-			spawnedEvent.Invoke(spawned);
+			spawned[i] = Instantiate(GetRandomTemplate(), GetRandomPosition(), _spawnPoint.rotation, _spawnedObjectsParent);
 		}
+
+		return spawned;
 	}
 
-	public virtual void Spawn() => Spawn(1);
+	public virtual T Spawn() => Spawn(1)[0];
 
 	protected Vector3 GetRandomPosition()
 	{

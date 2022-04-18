@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyWavesLauncher : MonoBehaviour
 {
-	[SerializeField] private EnemiesSpawner _enemiesSpawner;
+	[SerializeField] private EnemyMoverSpawner _enemiesSpawner;
 	[SerializeField] private PowerUpSpawner _powerUpSpawner;
 	[SerializeField] private Score _score;
 
